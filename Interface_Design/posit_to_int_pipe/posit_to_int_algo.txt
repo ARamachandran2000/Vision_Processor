@@ -1,0 +1,8 @@
+Step 1: Input 16-bit posit number -> a
+Step 2: If input pattern is 16'b0000000000000000  then set set_zero = 1;
+Step 3: Set intm_posit = a[14:0]
+Step 4: Set n = LZD of intm_posit
+Step 5: If n >= 9 then the posit is greater than 255. If so, set set_max = 1;
+Step 6: Left shift intm_posit n times
+Step 7: Extract 8 bits from MSB -> res
+Step 8: Right shift res (8-n) times and now we have the resultant posit
