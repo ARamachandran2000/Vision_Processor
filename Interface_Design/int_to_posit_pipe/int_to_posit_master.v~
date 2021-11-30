@@ -40,13 +40,11 @@ pipe_write_ack
     input [N-1:0] rx_axis_tdata;
     output rx_axis_tready;
     
-    output  [PS-1 : 0] pipe_write_data;
+    output reg [PS-1 : 0] pipe_write_data;
     output reg pipe_write_req;
     input  pipe_write_ack;
     
     //Create a FIFO
-    
-    
     
     assign rx_axis_tready = 1;
     reg [PS-1 : 0] fifo [D - 1 : 0];
@@ -64,7 +62,7 @@ pipe_write_ack
     
     int_to_posit_converter ip1 (convert_data,final_data);
     
-    assign pipe_write_data = fifo[fifo_pos_front];
+    
     
 //////////////////////////////////////Reset Logic////////////////////////////////////////////
     
@@ -119,14 +117,14 @@ end
    always@(posedge clk)
    begin
         
-       if (reset_reg == 1'b1)
-               begin
-                   pipe_write_req <= 1'b0; //No Data to send to Pipe now since reset has been asserted
-                   fifo_pos_front <= 1'b0; // Reset Position to 0
-                   fifo_pos_rear  <= 1'b0;
-                   fifo_full      <= 1'b0;
-                
-               end
+   if (reset_reg == 1'b1)
+           begin
+               pipe_write_req <= 1'b0; //No Data to send to Pipe now since reset has been asserted
+               fifo_pos_front <= 1'b0; // Reset Position to 0
+               fifo_pos_rear  <= 1'b0;
+               fifo_full      <= 1'b0;
+            
+           end
    
    else
    
@@ -160,7 +158,7 @@ end
                    if (fifo_pos_rear != fifo_pos_front)  //Indicates that Data is available to send
                                begin
                                    pipe_write_req  <= 1'b1;
-                                   
+                                   pipe_write_data <= fifo[fifo_pos_front];
                                    
                                    if (pipe_write_ack == 1'b1)
                                    begin
@@ -191,4 +189,3 @@ end
    
     
 endmodule
-
