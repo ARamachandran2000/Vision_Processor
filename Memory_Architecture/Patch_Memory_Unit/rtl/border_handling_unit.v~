@@ -18,8 +18,8 @@ module pixel_address_calc
     parameter img_w = 128;  //Should be able to read this from the Memory Access Table
     parameter img_h = 128; //Should be able to read this from the Memory Access Table
 
-    parameter subimg_h = img_h/2;
-    parameter subimg_w = img_w/2;
+    parameter subimg_h = img_h/4;
+    parameter subimg_w = img_w/4;
 
     parameter CORE_0 = 0;
     parameter CORE_1 = 0;
